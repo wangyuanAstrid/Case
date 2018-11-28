@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>动态生成表格并查询数据填充表格</title>
+    <style>
+        #tableList td{
+            vertical-align: middle;
+            text-align: center;
+        }
+        #tableList {
+            border: 1px solid #ff0000;
+            width: 100%;
+        }
+
+        .topBack {
+            background-color: #daf9dc
+        }
+
+        .redBack {
+            background-color: #eeeccd
+        }
+
+        .blueBack {
+            background-color: #ded9ff
+        }
+    </style>
+</head>
+<body>
+<script>
+    var Table = {
+        type:"check",
+        info: {
+            content:[
+                {name: "名字",title: "id"},
+                {name: "价格", title: 'price'},
+                {name: "牌子", title: 'push'},
+                {name: "个数", title: "total"}
+            ],
+            button:[
+                {name:"删除",className:"delete"},
+                {name:"编辑",className:"edit"}
+            ]
+        },
+        init: function () {
+            var that = this;
+            that.createTable(that.info);
+            that.ajaxGet();
+        },
+
+        /*
+        * 在表格中插入复选框
+        * */
+        checkBox:function(){
+            var trs = document.getElementsByTagName("tr");
+            for(var i=0;i<trs.length;i++){
+                var tableT = trs[i].insertCell(0);
+                tableT.innerHTML = "<input class='isCheck' type = 'checkbox'>";
+            }
+        } ,
+
+        /*操作列加入操作按钮*/
+        joinBut:function(option){
+            var trs = document.getElementsByTagName("tr");
+            var cellBut ="";
+            for(var i=1;i<trs.length;i++){
+                var tableT = trs[i].insertCell(trs[i].cells.length);
+                for(var j=0;j<option.length;j++){
+                    cellBut += "<input class='rowBut' type = 'button' value="+option[j].name+">";
+                    tableT.innerHTML = cellBut;
+                }
+                cellBut = "";
+
+            }
+        },
+
+         /*
+         * 创建表格
+         * */
+        createTable: function (option) {
+            var that = this;
+            that.cells = [];
+            that.button = [];
+            var tableList = document.createElement("table");
+            document.body.appendChild(tableList);
+            tableList.id = "tableList";
+            for (var i = 0; i < 1; i++) {
+                //创建一行
+                var tableRow = tableList.insertRow(tableList.rows.length);
+                tableRow.setAttribute("class", "topBack");
+                //创建该行的列
+                for (var j = 0; j < option.content.length; j++) {
+                    var tableTh = document.createElement("th");
+                    tableRow.appendChild(tableTh);
+                    //为该行所有列添加内容
+                    tableTh.innerHTML = option.content[j].name;
+                    that.cells[j] = option.content[j].title;
+                }
+                //添加操作按钮列
+                if(option.button){
+                    var butCell = tableRow.insertCell(tableRow.cells.length);
+                    butCell.innerHTML = "操作";
+                    that.button =option.button;
+                }
+            }
+        },
+        /*
+         *往表格中插入数据
+         */
+        insertTable: function (data) {
+            var that = this;
+            for (var i = 0; i < data.beans.length; i++) {
+                //创建一行
+                var tableRow = tableList.insertRow(tableList.rows.length);
+                //相错一行，颜色设置不同
+                if (i % 2 === 0) {
+                    tableRow.setAttribute("class", "redBack");
+                } else {
+                    tableRow.setAttribute("class", "blueBack");
+                }
+                //创建该行的列
+                for (var j = 0; j < that.cells.length; j++) {
+                    var tableCell = tableRow.insertCell(tableRow.cells.length);
+                }
+                //数据按其属性填入表格
+                for (var key in data.beans[i]) {
+                    var index = that.insertList(key);
+                    tableRow.cells[index[0]].innerHTML = data.beans[i][key];//不严谨匹配；
+                }
+            }
+            //如果表格是带复选框类型
+            if(that.type){
+                that.checkBox();
+            }
+            //如果表格有操作按钮列
+            if(that.button){
+                that.joinBut(that.button);
+            }
+
+        },
+
+        /*
+         * 查询数据并按照属性填充列表；
+         */
+        insertList: function (data) {
+            var that = this;
+            var cellName;
+            for (var i = 0; i < that.cells.length; i++) {
+                cellName = that.cells[i];
+                if (data == cellName) {
+                    return [i,cellName];//返回属性值所在列及其属性；
+                }
+            }
+        },
+
+
+        /*
+         * ajax请求数据【此为假设请求成功，实际操作需自己修改请求】
+         */
+        ajaxGet: function () {
+            var that = this;
+            //创建异步对象
+            var ajax = new XMLHttpRequest();
+            //设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端
+            ajax.open('get', 'table-data.json');
+            //发送请求
+            ajax.send();
+            //注册事件 onreadystatechange 状态改变就会调用
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState == 4 && ajax.status == 200) {
+                    //如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的
+                    //console.log(ajax.response);
+                    //收到的数据需要转换成方便用的格式
+                    var data = JSON.parse(ajax.responseText);
+                    //调用方法传入获取的数据
+                    that.insertTable(data);
+                }
+            }
+        }
+    };
+    Table.init();
+</script>
+</body>
+</html>
