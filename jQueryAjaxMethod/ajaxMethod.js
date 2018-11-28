@@ -38,18 +38,6 @@ var ajax ={
      * @param errorCallback
      */
     ajaxAsyncTrue: function (option, successCallback, errorCallback) {
-
-        if(this.thePlatformInfo){
-            $.extend(option.data, {
-                client_id: this.thePlatformInfo.clientId,
-                userId: this.thePlatformInfo.userId,
-                appPlat: this.thePlatformInfo.appPlat,
-                bundleId: this.thePlatformInfo.bundleId,
-                serverToken: this.thePlatformInfo.serverToken,
-                timestamp: new Date().getTime()
-            });
-        }
-
         var opt = {
             type: "POST",
             dataType: "json",
