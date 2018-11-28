@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>demo3</title>
+    <link rel="stylesheet" type="text/css" href="../css/demo3.css"/>
+    <style type="text/css">
+        .con-right2 {
+            border: 1px solid red;
+            float: right;
+            width: 721px;
+            margin: 30px 10px 0px 10px;
+        }
+
+        img .news-img {
+            height: 150px;
+            width: 300px;
+        }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body>
+<div class="top">
+    <div class="top-left1 clear">
+        <i class=" icon-weibo iconfont">&#xe69d;</i><span class="top-left1-txt1">&nbsp;微博</span>
+    </div>
+    <div class="top-left2 clear" style="border: 1px solid #969896;">
+        <input class="top-left2-txt1" type="text" name="" value=""/>
+        <button class="top-left2-but1">搜索</button>
+    </div>
+    <div class="top-right1">
+        <a class="login icon-denglu iconfont" href="#登录">&#xe65e;&nbsp;</a>
+        <a class="regiter icon-zhuce iconfont" href="#注册">&#xe604;&nbsp;</a>
+    </div>
+    <div class="top-right2">
+        <a href="demo3.html"><i class="icon-shouye iconfont">&#xe600;</i><span>&nbsp;&nbsp;首页</span></a>
+        <a href="#发现你"><i class="icon-faxian iconfont">&#xe683;</i><span>&nbsp;&nbsp;发现</span></a>
+        <a href="#玩游戏"><i class="icon-shouye iconfont">&#xe654;</i><span>&nbsp;&nbsp;游戏</span></a>
+        <a href="#看视频"><i class="icon-shouye iconfont">&#xe610;</i><span>&nbsp;&nbsp;视频</span></a>
+    </div>
+    <div id="clear-1" style="clear: both;"></div>
+</div>
+<div style="height: 40px;"></div>
+<div class="content" style="">
+    <ul class="con-left">
+        <li class="active">
+            <a href="#">热门</a>
+        </li>
+        <li>
+            <a href="#">头条</a>
+        </li>
+        <li>
+            <a href="#">视频</a>
+        </li>
+        <li>
+            <a href="#">新鲜事</a>
+        </li>
+        <li>
+            <a href="#">榜单</a>
+        </li>
+        <li>
+            <a href="#">搞笑</a>
+        </li>
+        <li>
+            <a href="#">社会</a>
+        </li>
+        <li>
+            <a href="#">时尚</a>
+        </li>
+    </ul>
+</div>
+<div class="con-right">
+    <div class="con-right1">
+        <form class="con-right1-tab" action="#">
+            <h1>登录</h1>
+
+            <p>
+                账号：<input type="text" id="name" onblur="check_name();"/>
+                <br><span id="name_msg">3-20位字母、数字、下划线</span>
+            </p>
+
+            <p>
+                密码：<input type="password" id="pwd" onblur="check_pwd();"/>
+                <br><span id="pwd_msg">6-20位字母、数字、下划线</span>
+            </p>
+
+            <div>
+                <input class="con-right1-sub" type="submit" value="登录"/>
+            </div>
+        </form>
+    </div>
+    <div class="con-right2">
+        <ul class="con-right2-txt">
+            <li class="active">
+                <img class="news-img" src="../img/10.jpg" style="width: 600px; height: 250px;"/>
+
+                <p>看看我</p>
+            </li>
+            <li class="">
+                <img class="news-img" src="../img/7.jpg" style="width: 600px; height: 250px;"/>
+
+                <p>抱抱我</p>
+            </li>
+            <li class="">
+                <img class="news-img" src="../img/2.jpg" style="width: 600px; height: 250px;"/>
+
+                <p>夸夸我</p>
+            </li>
+            <li class="">
+                <img class="news-img" src="../img/3.jpg" style="width: 600px; height: 250px;"/>
+
+                <p>亲亲我</p>
+            </li>
+            <li class="">
+                <img class="news-img" src="../img/4.jpg" style="width: 600px; height: 250px;"/>
+
+                <p>陪陪我</p>
+            </li>
+            <li class="">
+                <img class="news-img" src="../img/5.jpg" style="width: 600px; height: 250px;"/>
+
+                <p>都送我！！</p>
+            </li>
+            <li class="">
+                <img class="news-img" src="../img/8.png"/>
+
+                <p>没有你的份！！</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="../js/zepto.js"></script>
+<script src="../js/demo3.js"></script>
+</body>
+</html>

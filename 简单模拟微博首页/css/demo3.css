@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('../font/iconfont.eot');
+    src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/iconfont.woff') format('woff'),
+    url('../font/iconfont.ttf') format('truetype'),
+    url('../font/iconfont.svg#iconfont') format('svg');
+
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 20px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.top {
+    position: fixed;
+    padding: 5px 20px;
+    width: 1210px;
+    left: 42px;
+    background-color: #FFfede;
+
+}
+
+.clear {*zoom: 1;}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.top-left2 {
+    width: 300px;
+    margin-left: 50px;
+    background-color: #666;
+
+}
+
+.top-left2-txt1 {
+    width: 240px;
+    margin: 0;
+    border: 0;
+    height: 23px;
+}
+
+.top-left2-but1 {
+    width: 53px;
+    height: 20px;
+    border: 0;
+    background-color: #666;
+    color: #fff;
+}
+
+.top-left1 {
+    float: left;
+}
+
+.top-left2 {
+    float: left;
+}
+
+.top-right1 {
+    float: right;
+}
+
+.top-right2 {
+    float: right;
+    margin-right: 10px;
+}
+
+.login {
+    border-right: 1px solid #1098ff;
+    padding-right: 26px;
+    margin-left: 35px;
+}
+
+/*菜单栏*/
+.con-left {
+    float: left;
+    width: 12%;
+    text-align: center;
+    position: fixed;
+    border-radius: 3px;
+}
+
+.con-left li {
+    font-size: 22px;
+    padding: 8px 12px;
+    background-color: #045;
+}
+
+.con-left li:hover {
+    background-color: #00ef98;
+}
+
+.con-left .active {
+    background-color: #00ef98;
+}
+
+.con-right2-txt > li {
+    display: none;
+}
+.con-right2-txt > .active {
+    display: block;
+}
+
+.con-left > li > a {
+    color: #FFFFFF;
+}
+
+/*登录样式*/
+.con-right1 {
+    float: right;
+    margin: 30px 100px 0px 0px;
+}
+
+.con-right1 form {
+    width: 300px;
+    background-color: #ebffff;
+    border: 1px solid #ccc;
+}
+
+.con-right1 form h1 {
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.con-right1 form p {
+    margin: 0;
+    padding: 25px;
+    border: 1px solid #ccc;
+}
+
+.con-right1 form div {
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.error_msg {
+    border: 1px solid red;
+    color: red;
+}
+
+.con-right1-sub {
+    padding: 3px 7px;
+    background-color: #666666;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 18px;
+}
