@@ -6,10 +6,10 @@ var xx = {
         var that = this, cookies, Info;
         var name = [];
         //name值可以作为参数传进来
-        name[0] = "userId";
-        name[1] = "ngvcClientId";
-        name[2] = "ngvcTokenKey";
-        name[3] = "ngvcSdkaddress";
+        name[0] = "name1";
+        name[1] = "name2";
+        name[2] = "name3";
+        name[3] = "name4";
         Info = {
             userId: that.getCookie(name[0]),
             ngvcClientId: that.getCookie(name[1]),
