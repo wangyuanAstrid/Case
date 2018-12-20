@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>复制粘贴</title>
+    <style>
+        .ctrlV{
+            display: block;
+        }
+        .icon-share{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="share-live-url"  ww="one">
+    <textarea id="shareLiveUrl"></textarea>
+    <!-- 触发元素 -->
+    <button class="btn" data-clipboard-action="cut" data-clipboard-target="#shareLiveUrl">
+        剪切到剪贴板
+    </button>
+</div>
+<div ee="第二种复制方式">
+    <a class="icon-share btn"  >复制</a>
+</div>
+
+<textarea class="ctrlV" placeholder="可以把复制好的内容粘贴这里测试一下哟！<*_*>"></textarea>
+<script src="clipboard/clipboard.min.js"></script>
+<script>
+    var clipboard = new Clipboard('.btn');
+    clipboard.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        alert('复制成功！')
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+    /**/
+
+    var aa =document.getElementsByTagName('a')[0];
+    aa.setAttribute('data-clipboard-text','我是将要被复制的内容');
+</script>
+
+</body>
+</html>
