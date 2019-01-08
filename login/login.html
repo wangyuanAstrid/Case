@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>登录</title>
+    <style>
+
+        /*登录注册 start*/
+
+        /*单独登录主页*/
+        .login-logo{
+            margin-bottom: 15%;
+        }
+        .login-logo-img{
+            width: 35%;
+            transform: translate(100%);
+        }
+        /*end*/
+
+        .login {
+            padding: 20px 20px;
+            background-color: #fff;
+            border-radius: 20px; top:45%;left:50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            position: absolute;
+            width: 94%;box-sizing: border-box;
+            z-index: 110;
+        }
+
+        .login-img-code{width:35%;float: left;margin:0px 0px 0px 3%; height: 1rem;font-size: 0.45rem}
+
+        .login .wy-line1 {
+            margin: 0 auto 0.5rem auto;
+            /*background-color: #f7f7f7;*/
+            border-radius: 5px;
+        }
+
+        .login .btn1 {
+            background-color: #1e85ca;
+            line-height: 1rem;
+            color: #fff;
+            text-align: center;
+            display: block;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 20px;
+            -webkit-tap-highlight-color:transparent;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+            width:100%;
+        }
+
+        .login .btn1:hover {
+            background-color: #1e85ca;
+        }
+
+        .login div .submit {
+            background-color: #469adf;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            -webkit-tap-highlight-color:transparent;
+
+        }
+
+        .wy-close-login {
+            padding: 5px;
+            cursor: pointer;
+            -webkit-tap-highlight-color:transparent;
+            font-size: 0.35rem;
+
+        }
+
+        .login .login-txt1 {
+            color: #000;
+            margin-bottom: 10px;
+            cursor: pointer;
+            -webkit-tap-highlight-color:transparent;
+            text-align: center;
+            font-size: 0.5rem;
+            line-height: 1rem;
+        }
+        .login-title{
+            color: #000;
+            margin-bottom: 10px;
+            cursor: pointer;
+            -webkit-tap-highlight-color:transparent;
+            text-align: center;
+            font-size: 0.6rem;
+            line-height: 1.2rem;
+        }
+
+        .login .login-error-tip {
+            font-size: 0.35rem;
+            color: red;
+            line-height: 1rem;
+        }
+        .login-label{line-height: 1rem;font-size: 0.45rem}
+        .login-label.middle{width:25%;vertical-align: super}
+        .login-label.short{width:13%;vertical-align: super}
+
+        .wy-login-input{
+            line-height: 1rem;
+            border-radius: 5px;
+            background-color:rgba(228,228,228,0.4);
+            cursor: pointer;
+            -webkit-tap-highlight-color:transparent;
+            padding-left: 2%;
+            box-sizing: border-box;
+
+        }
+        .wy-login-input.long{
+            float: right;
+            width:85%;
+        }
+
+        .wy-login-input.short {
+            width: 28%;
+            float: left;
+        }
+        .login .wy-code-btn {
+            width: 35%;
+            border-radius: 20px;
+            background-color: #eee;
+            padding: 0 5px;
+            color: #fff;
+            margin-left: 3%;
+            cursor: pointer;
+            -webkit-tap-highlight-color:transparent;
+            line-height: 1rem;
+            vertical-align: super;
+        }
+
+
+        .login .wy-code-btn.active,.wy-login-btn1.active{
+            background-color: #1e85ca;
+        }
+
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <!--登录弹窗 start-->
+    <div class="login">
+        <div class="login-container">
+            <div class="login-logo clear">
+                <img class='login-logo-img' src="logo.png">
+            </div>
+            <p class="d-none login-error-tip"></p>
+
+            <div class="wy-line1 clear">
+                <span class="fl login-label short">+86</span>
+                <input class="wy-login-input long" id="inputNo" maxlength="11" placeholder="请输入手机号" type="text"/>
+            </div>
+
+            <div class="wy-line1 clear">
+                <span class="fl login-label middle">图形验证码</span><input class="wy-login-input short" id="inputCode" placeholder="图形验证码" maxlength="4" type="text" style=""/>
+                <img class="login-img-code" id="getCode" alt="验证码" src="">
+            </div>
+
+            <div class="wy-line1 clear">
+                <span class="fl login-label middle">短信验证码</span><input class="wy-login-input short" id="msgCode" placeholder="短信验证码" maxlength="6" type="text" style=""/>
+                <input class="wy-code-btn fl" disabled type="button" value="发送验证码">
+            </div>
+            <input class="wy-login-btn1 btn1" value="登录" type="button">
+        </div>
+
+    </div>
+    <!--登录弹窗 end-->
+</div>
+
+
+
+
+<script src="jquery.js"></script>
+<script>
+   var login = {
+       init:function(){
+          var that = this;
+           that.rootSize(1080);
+           that.bindEvent();
+       },
+
+
+       /**
+        * 绑定事件
+        */
+       bindEvent: function () {
+           var that = this;
+
+           // 手机号码失焦事件
+           $('#inputNo').off('blur').on('blur', function (e) {
+               var phoneNumber = $('#inputNo').val();
+               var patternChinaMobile = /^1(3[4-9]|5[012789]|8[23478]|4[7]|7[8])\d{8}$/;
+               if(that.timeC){
+                   return;
+               }
+
+               if (!phoneNumber) {
+                   $('.login-error-tip').html('请输入手机号码！').removeClass('d-none');
+                   $('.wy-code-btn').attr("disabled", 'disabled').removeClass('active');
+                   return;
+               }
+               if (!patternChinaMobile.test(phoneNumber)) {
+                   $('.login-error-tip').html('请输入移动手机号码！').removeClass('d-none');
+                   $('.wy-code-btn').attr("disabled", 'disabled').removeClass('active');
+                   return;
+               }
+               $('.login-error-tip').addClass('d-none');
+               $('.wy-code-btn').removeAttr("disabled").addClass('active');
+
+           });
+
+           // x关闭弹窗
+           $('.popclose-icon').off('click').on('click',function (e) {
+               $(this).parents(".page-mask").fadeOut(200);
+           });
+           // 获取新的图形验证码
+           $('#getCode').off('click').on('click', function (e) {
+               that.getCode();
+           });
+           // 获取短信验证码
+           $('.wy-code-btn').off('click').on('click', function (e) {
+               // 需要先禁用按钮（为防止用户重复点击）
+               $('.wy-code-btn').attr("disabled", 'disabled');
+               var phoneNumber = $('#inputNo').val();
+               var patternChinaMobile = /^1(3[4-9]|5[012789]|8[23478]|4[7]|7[8])\d{8}$/;
+               if (!phoneNumber && (phoneNumber.length ==11)) {
+                   $('.login-error-tip').html('请输入正确的手机号码！').removeClass('d-none');
+                   $('.wy-code-btn').attr("disabled", 'disabled').removeClass('active');
+                   return;
+               }
+               if (!patternChinaMobile.test(phoneNumber)) {
+                   $('.login-error-tip').html('请输入移动手机号码！').removeClass('d-none');
+                   $('.wy-code-btn').attr("disabled", 'disabled').removeClass('active');
+                   return;
+               }
+               that.getmsgCode(phoneNumber);
+           });
+
+           // 登录
+           $('.wy-login-btn1').off('click').on('click',function (e) {
+               $('.login-error-tip').addClass('d-none');
+               $('.wy-login-btn1').attr("disabled", 'disabled');
+               var phoneNum, imgCode, msgCode,param;
+               phoneNum = $('#inputNo').val();
+               var patternChinaMobile = /^1(3[4-9]|5[012789]|8[23478]|4[7]|7[8])\d{8}$/;
+               if (!phoneNum && (phoneNum.length ==11)) {
+                   $('.login-error-tip').html('请输入正确的手机号码！').removeClass('d-none');
+                   $('.wy-login-btn1').removeAttr("disabled");
+                   return;
+               }
+               if (!patternChinaMobile.test(phoneNum)) {
+                   $('.login-error-tip').html('请输入移动手机号码！').removeClass('d-none');
+                   $('.wy-login-btn1').removeAttr("disabled");
+                   return;
+               }
+
+               imgCode = $('#inputCode').val();
+               if (!imgCode) {
+                   $('.login-error-tip').html('请输入图片验证码').removeClass('d-none');
+                   $('.wy-login-btn1').removeAttr("disabled");
+                   return;
+               }
+
+               msgCode = $('#msgCode').val();
+               if (!msgCode) {
+                   $('.login-error-tip').html('请输入短信验证码').removeClass('d-none');
+                   $('.wy-login-btn1').removeAttr("disabled");
+                   return;
+               }
+               param={ phone: phoneNum,smsCode: msgCode,rndcode: imgCode };
+               that.phoneLogin(param);
+           });
+
+       },
+       /**
+        * 手机验证登录
+        * @param inputData
+        */
+       phoneLogin: function (inputData) {
+           var that = this;
+           $('.login-error-tip').addClass('d-none');
+           $.ajax({
+               type: "POST",
+               url:'......',
+               data: {
+                   channelId: '',
+                   grant_type: '',
+                   phone: inputData.phone,
+                   smsCode: inputData.smsCode,
+                   rndcode: inputData.rndcode
+               },
+               dataType: "json",
+               success: function (repData) {
+                   if (repData && repData.returnCode == '0') {
+                      /*验证成功后的操作*/
+
+                   } else {
+                       //验证失败，原因可详细扩展描述（有时候可能是请求权限问题导致失败，需确认配置的接入方信息是否完整）
+                       $('.login-error-tip').html((repData && repData.returnMessage) || '登录异常，请稍后重试。').removeClass('d-none');
+                       $('.wy-login-btn1').removeAttr("disabled");
+                       that.getCode();
+                   }
+               },
+               error: function () {
+                   $('.wy-login-btn1').removeAttr("disabled");
+                   $('.login-error-tip').html('登录异常，请稍后重试。').removeClass('d-none')
+               }
+           });
+       },
+
+       /*
+        *获取图片验证码
+        */
+       getCode: function () {
+           var that = this;
+           //更新图片地址
+           $('#getCode').attr('src', that.publicUrl + '' + new Date().getTime());
+       },
+
+       /**
+        * 重新发送计时
+        */
+       timeCount: function () {
+           var that = this;
+           that.timeC =window.setTimeout(function () {
+               if (that.timeLeft > 0) {
+                   that.timeLeft -= 1;
+                   //改变发送短信验证码文本
+                   $('.wy-code-btn').val("(" + that.timeLeft + ")重新发送");
+                   that.timeCount();
+               } else {
+                   //60秒计时后按钮文本修改为重新发送，并移除不可点击状态
+                   $('.wy-code-btn').removeAttr("disabled").addClass('active').val("重新发送");
+                   that.timeC ='';
+               }
+           }, 1000);
+       },
+
+
+       /**
+        * 获取短信验证码
+        * @param phoneNumber
+        */
+       getmsgCode: function (phoneNumber) {
+           var that = this;
+           $.ajax({
+               // ajax接口调用...
+               type: "POST",
+               url: that._getPhoneCodeUrl + '' + phoneNumber,
+               data: phoneNumber,
+               dataType: "json",
+               success: function (data) {
+                   alert('验证码已发送至您的手机');
+                   that.timeLeft = that.sendInterval;
+                   that.timeCount();
+                   $('.wy-code-btn').attr("disabled", 'disabled').removeClass('active');
+               },
+               error: function (data) {
+                   //失败，弹窗
+                   alert('发送失败');
+                   // ** 重要：因为发送失败，所以要恢复发送按钮的监听 **
+                   $('.wy-code-btn').removeAttr("disabled").addClass('active').val("重新发送");
+               }
+           })
+       },
+       /**
+        * rem适配
+        * @param psWidth
+        */
+       rootSize: function (psWidth) {
+           var docWidth = document.documentElement.clientWidth;
+           var objHtml = document.getElementsByTagName("html")[0];
+           if (docWidth > psWidth) {
+               docWidth = psWidth;
+           }
+           objHtml.style.fontSize = docWidth / (psWidth / 100) + "px";
+       }
+
+   }
+   login.init();
+</script>
+
+</body>
+</html>
