@@ -47,15 +47,64 @@
             that.createTable(that.info);
             that.ajaxGet();
         },
+        /*绑定事件*/
+        bindEvent:function(){
+            var that =this;
+            var firstC =document.getElementsByClassName('firstCheck')[0];
+            //点击首行复选框，标识全选
+            firstC.onclick = function(){
+                if(firstC.checked){
+                    var checkedBox = document.getElementsByClassName("isCheck");
+                    for(var i=0;i<checkedBox.length;i++){
+                        checkedBox[i].checked=true;
+                    }
+                }else{
+                    var checkedBox = document.getElementsByClassName("isCheck");
+                    for(var i=0;i<checkedBox.length;i++){
+                        checkedBox[i].checked=false;
+                    }
+                }
+            };
+
+
+
+
+        },
+
 
         /*
         * 在表格中插入复选框
         * */
         checkBox:function(){
+            var that = this;
             var trs = document.getElementsByTagName("tr");
             for(var i=0;i<trs.length;i++){
                 var tableT = trs[i].insertCell(0);
                 tableT.innerHTML = "<input class='isCheck' type = 'checkbox'>";
+            }
+            var firstC =document.getElementsByClassName('isCheck')[0];
+            firstC.classList.add('firstCheck');
+            firstC.classList.remove('isCheck');
+            that.bindEvent();
+            //除首行复选框外，全部选中，则首行也是选中状态，相反成立
+            var checkChild =document.getElementsByClassName('isCheck');
+            for(var i=0;i<checkChild.length;i++){
+                checkChild[i].addEventListener('click',function(){
+                    var num=true;
+                    for(var n=0;n<checkChild.length;n++){
+                        if(checkChild[n].checked){
+                            num=(num && true);
+                        }else{
+                            num=false;
+                        }
+                    }
+                    if(num){
+                        firstC.checked=true;
+                    }else{
+                        firstC.checked = false;
+                    }
+                });
+
             }
         } ,
 
