@@ -12,6 +12,9 @@
             border: 1px solid #ff0000;
             width: 100%;
         }
+        .wy-checked{
+        width: 10px;
+        }
 
         .topBack {
             background-color: #daf9dc
@@ -23,6 +26,12 @@
 
         .blueBack {
             background-color: #ded9ff
+        }
+        .rowBtn{
+            border: 0;
+            background: rgba(1,1,1,0);
+            color: #00adff;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -72,8 +81,11 @@
         },
 
 
+
+
+
         /*
-        * 在表格中插入复选框
+        * 在表格中插入复选框,并处理复选框选中事件
         * */
         checkBox:function(){
             var that = this;
@@ -81,6 +93,7 @@
             for(var i=0;i<trs.length;i++){
                 var tableT = trs[i].insertCell(0);
                 tableT.innerHTML = "<input class='isCheck' type = 'checkbox'>";
+                tableT.classList.add('wy-checked');
             }
             var firstC =document.getElementsByClassName('isCheck')[0];
             firstC.classList.add('firstCheck');
@@ -115,7 +128,7 @@
             for(var i=1;i<trs.length;i++){
                 var tableT = trs[i].insertCell(trs[i].cells.length);
                 for(var j=0;j<option.length;j++){
-                    cellBut += "<input class='rowBut' type = 'button' value="+option[j].name+">";
+                    cellBut += "<input class='rowBtn' type = 'button' value="+option[j].name+">";
                     tableT.innerHTML = cellBut;
                 }
                 cellBut = "";
@@ -180,6 +193,7 @@
             //如果表格是带复选框类型
             if(that.type){
                 that.checkBox();
+
             }
             //如果表格有操作按钮列
             if(that.button){
