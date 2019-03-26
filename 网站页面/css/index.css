@@ -67,6 +67,8 @@ li {
     display: none;
 }
 
+
+/*公共nav样式*/
 .we-logo {
     width: 270px;
     height: 50px;
@@ -507,7 +509,7 @@ li {
     font-size: 50px;
     margin-top: 250px;
 }
-/*底部*/
+/*底部公共*/
 .footer-div {
     height: 308px;
     width: 100%;
@@ -724,7 +726,7 @@ li {
 
 
 
-
+/*产品与服务---部分都是公用--后面三部分样式*/
 
 .two-div-img-product-list li {
     width: 30%;
