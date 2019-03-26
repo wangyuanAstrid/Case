@@ -177,15 +177,27 @@ li {
 .scale1 {
     transition: all 1s;
 }
-/*图片缩小放大*/
+/*图片缩小放大 end*/
 .two-div-button {
     width: 100px;
     padding: 9px;
     border: 2px solid #EC6F2E;
     text-align: center;
-    font-size: 12px;
+    font-size: 16px;
+    margin: auto;
     margin-top: 40px;
+    cursor: pointer;
 }
+.three-div-button.get-more {
+    width: 100px;
+    padding: 9px;
+    border: 2px solid #EC6F2E;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
 
 .two-div-word p .wo-div-img-product p {
     width: 75%;
