@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Jquery练习</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #ffb680;
+            top: 10px;
+            left: 10px;
+        }
+
+        .div2{
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #ffa490;
+            top: 75px;
+            left: 75px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="div1">
+
+</div>
+<div id="ceshi">
+
+</div>
+<!--<input type="button" value="123">-->
+<!---->
+<script src="jquery.js"></script>
+<script>
+
+
+    /*
+
+    大多数js与jQuery类似方法应用
+       parent():获取父级
+       offsetParent()：获取有定位的父级；（如果找不到被定位的会找到body）
+    */
+//    $("#div2").offsetParent().css("background","#afa")
+//    $("#div2").offsetParent().css("background","#cad")
+
+$(function(){
+//   alert($("input").val())
+//    $("input").val(456)
+    /*
+    * size();取长度；
+    * each();循序--》
+    * each(function(i,elem){------>一参：下标；二参：元素；
+    *     $(elem).html(i);
+    * })
+    * */
+
+/*编写拖拽*/
+    var disX =0,disY = 0 ,div = $('#div1');
+    div.mousedown(function(ev){
+       disX  = ev.pageX - $(this).offset().left;
+       disY  = ev.pageY - $(this).offset().top;
+        $(document).mousemove(function(ev){
+           div.css('left', ev.pageX -disX);
+           div.css('top', ev.pageY -disY);
+        });
+        $(document).mouseup(function(){
+            $(document).off();
+        });
+        return false;//阻止冒泡或者默认事件
+    });
+
+
+});
+
+/*鼠标移入移出*///------>两个参数（一、移入；二、移出）
+    $('#div1').hover(function(){
+        $("#div1").css("background","#aec")
+        $('#ceshi').addClass('div2').fadeTo(1000,0.2);
+    },function(){
+        $("#div1").css("background","#afa")
+        $('#ceshi').addClass('div2').fadeTo(1000,1);
+    });
+
+    /*
+    * show();hide();中间加个参数--》时间参数，，选中元素将在参数规定时间内等比例缩小至隐藏；
+    * fadeIn();fadeOut();淡入淡出，也可以指定时间参数；默认400ms；
+    * slideDown();slideUp();向上卷曲，向下展开
+    *
+    * fadeTo();--->参数（1、时间；2、透明度；）
+    * */
+
+</script>
+</body>
+</html>
